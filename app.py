@@ -1,27 +1,29 @@
-from tkinter import Tk, Frame, Label, Entry, Button, TOP, LEFT, RIGHT
-from modules import *
+from tkinter import Tk, Frame, Label, Entry, TOP, RIGHT
+
+from buttons import *
 
 
 def app():
-    root = Tk()
-    root.geometry("500x500")
-    root.title("Welcome PC1D calculator!")
-    form = make_form(root, entry_fields)
-    button_trans(root, form)
-    button_ref(root, form)
-    button_abs(root, form)
-    button_ref_x_trans(root, form)
-    button_trans_ref(root, form)
-    button_multiple_lambdas(root, form)
-    button_lambda_bgs(root, form)
-    button_np_bgs(root, form)
-    root.mainloop()
+    window_root = Tk()
+    window_root.geometry("900x500")
+    window_root.title("PC1D Calculator")
+    form = make_form(window_root, entry_fields)
+    button_trans(window_root, form)
+    button_ref(window_root, form)
+    button_abs(window_root, form)
+    button_ref_by_trans(window_root, form)
+    button_trans_w_ref(window_root, form)
+    button_trans_ref_w_abs(window_root, form)
+    # button_multiple_lambdas(window_root, form)
+    # button_lambda_bgs(window_root, form)
+    # button_np_bgs(window_root, form)
+    window_root.mainloop()
 
 
-def make_form(root, fields):
+def make_form(window_root, fields):
     entries = {}
     for field in fields:
-        row = Frame(root)
+        row = Frame(window_root)
         lab = Label(row, width=20, text=field + ": ", anchor='w')
         entry = Entry(row)
         entry.insert(0, "0")
@@ -30,46 +32,6 @@ def make_form(root, fields):
         entry.pack(side=RIGHT, ipadx=100)
         entries[field] = entry
     return entries
-
-
-def button_ref(root, form):
-    b = Button(root, text='Reflect', command=(lambda entry_data=form: func_ref(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
-
-
-def button_trans(root, form):
-    b = Button(root, text='Trans', command=(lambda entry_data=form: func_trans(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
-
-
-def button_abs(root, form):
-    b = Button(root, text='Abs', command=(lambda entry_data=form: func_abs(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
-
-
-def button_ref_x_trans(root, form):
-    b = Button(root, text='RefXTrans', command=(lambda entry_data=form: func_ref_x_trans(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
-
-
-def button_trans_ref(root, form):
-    b = Button(root, text='TransReflect', command=(lambda entry_data=form: func_trans_ref(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
-
-
-def button_multiple_lambdas(root, form):
-    b = Button(root, text='MultipleLam', command=(lambda entry_data=form: func_multiple_lambdas(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
-
-
-def button_lambda_bgs(root, form):
-    b = Button(root, text='LamBGS', command=(lambda entry_data=form: func_lambda_bgs(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
-
-
-def button_np_bgs(root, form):
-    b = Button(root, text='NpBGS', command=(lambda entry_data=form: func_np_bgs(entry_data)))
-    b.pack(side=LEFT, padx=10, pady=5)
 
 
 if __name__ == '__main__':
