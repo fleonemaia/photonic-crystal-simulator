@@ -1,38 +1,41 @@
-from tkinter import Tk, Frame, Label, Entry, TOP, RIGHT
-
-from buttons import *
+from tkinter import *
+from functions import *
+import pandas as pd
 
 
 def app():
     window_root = Tk()
-    window_root.geometry("900x500")
     window_root.title("PC1D Calculator")
-    form = make_form(window_root, entry_fields)
-    button_trans(window_root, form)
-    button_ref(window_root, form)
-    button_abs(window_root, form)
-    button_ref_by_trans(window_root, form)
-    button_trans_w_ref(window_root, form)
-    button_trans_ref_w_abs(window_root, form)
-    # button_multiple_lambdas(window_root, form)
-    # button_lambda_bgs(window_root, form)
-    # button_np_bgs(window_root, form)
+    crystal_name = "KRC 1"  # substitute for a menu
+    calculate_action = "Absorption, Reflectance with Transmittance"  # substitute for a menu
+    # checkbox for save image
+    entry = make_form(window_root, crystal_name)
+    button_evaluate(window_root, entry, calculate_action)
     window_root.mainloop()
 
 
-def make_form(window_root, fields):
+def make_form(window_root, crystal_name):
     entries = {}
-    for field in fields:
+    for element in list(range(19)):
         row = Frame(window_root)
-        lab = Label(row, width=20, text=field + ": ", anchor='w')
-        entry = Entry(row)
-        entry.insert(0, "0")
+        lab = Label(row, width=38, text=data.index.values[element], anchor='w')
+        entry = Entry(row, width=5)
+        entry.insert(0, str(data[crystal_name][element]))
         row.pack(side=TOP, padx=10, pady=5)
         lab.pack(side=LEFT)
-        entry.pack(side=RIGHT, ipadx=100)
-        entries[field] = entry
+        entry.pack(side=RIGHT, ipadx=20)
+        entries[data.index.values[element]] = entry
     return entries
 
 
+def button_evaluate(window_root, entry, action):
+    b = Button(window_root, text='Evaluate', command=(lambda: func_evaluate(entry, action)))
+    b.pack(side=TOP, padx=10, pady=5)
+
+
 if __name__ == '__main__':
+    dataCSV = pd.read_csv("data.csv")
+    data = pd.DataFrame(dataCSV).set_index("Index").rename_axis("Crystals name", axis=1)
     app()
+
+# 2.9304+2.9996j
