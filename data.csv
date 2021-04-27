@@ -1,6 +1,6 @@
 Index,Default,KRC 1,KRC 2
-Initial wavelength for analysis,300,500,500
-Final wavelength for analysis,1500,1500,1500
+Initial wavelength for analysis,0,500,500
+Final wavelength for analysis,0,1500,1500
 Wave polarization,s,s,s
 Wave incidence angle,0,0,0
 Refractive index of the incident layer,0,1,1

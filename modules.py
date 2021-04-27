@@ -2,21 +2,15 @@ from cmath import exp
 from math import sin, cos, asin, pi
 from numpy import reshape, identity
 from numpy.linalg import pinv
+from tkinter import messagebox
 
 
-# noinspection PyTypeChecker
 def pc1d(data):
     # INPUT
     initial_wavelength = float(data['Initial wavelength for analysis'].get())
     final_wavelength = float(data['Final wavelength for analysis'].get())
     # polarization = str(data['Wave polarization'].get())
     angle_of_incidence = float(data['Wave incidence angle'].get())
-
-    n_inc = float(data['Refractive index of the incident layer'].get())
-    n_1 = float(data['Refractive index of odd layer'].get())
-    n_2 = float(data['Refractive index of even layer'].get())
-    n_subs = float(data['Refractive index of the substrate layer'].get())
-
     number_of_pairs = int(data['Number of pairs of crystal layers'].get())
     is_quarter_wave = int(data['Is structure a quarter-wave?'].get())
     lam_vac1 = float(data['Odd layer resonant wavelength'].get())
@@ -24,19 +18,22 @@ def pc1d(data):
     w_n_1 = float(data['Odd layer width'].get())
     w_n_2 = float(data['Even layer width'].get())
     number_of_defects = int(data['Are there any defects?'].get())
-
-    n_defects = float(data['Refractive index of the defect layer'].get())
-
     lam_vac_def = float(data['Defect layer resonant wavelength'].get())
     w_n_defects = float(data['Defect layer width'].get())
     inter_pairs = int(data['Number of pairs of crystal layers between defects'].get())
+    n_inc = float(data['Refractive index of the incident layer'].get())
+    n_1 = float(data['Refractive index of odd layer'].get())
+    n_2 = float(data['Refractive index of even layer'].get())
+    n_subs = float(data['Refractive index of the substrate layer'].get())
+    n_defects = float(data['Refractive index of the defect layer'].get())
 
     # Barriers
     number_of_materials = 2
     if number_of_defects == 1 or number_of_defects == 2:
         number_of_materials = 3
-    # elif number_of_defects != 0:
-    # generate error
+    elif number_of_defects != 0:
+        messagebox.showwarning("Warning", "The answer for 'Are there any defects?' must be 0, 1 or 2.")
+        return
     if is_quarter_wave == 1:
         w_n_1 = lam_vac1 / (4.0 * n_1)
         w_n_2 = lam_vac2 / (4.0 * n_2)
@@ -126,5 +123,3 @@ def pc1d(data):
                                                  ))
 
     return data_wavelength, data_reflectance_by_wavelength, data_transmittance_by_wavelength
-
-
