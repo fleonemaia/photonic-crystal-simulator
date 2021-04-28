@@ -1,29 +1,15 @@
 from tkinter import *
 from functions import *
 import pandas as pd
-import time
 
 
 def app():
     window_root = Tk()
     window_root.title("PC1D Calculator")
     crystal_name = "Default"
-    # crystal_name = make_crystal(window_root)
     entry = make_form(window_root, crystal_name)
     make_evaluation(window_root, entry)
     window_root.mainloop()
-
-
-# def make_crystal(window_root):
-#     row = Frame(window_root)
-#     click_crystal = StringVar()
-#     click_crystal.set(options_action[0])
-#     menu_action = OptionMenu(row, click_crystal, *options_action)
-#     bc = Button(row, text='Change', command=window_root.update())
-#     row.pack(side=TOP, padx=10, pady=5)
-#     menu_action.pack(side=LEFT, padx=10, pady=5)
-#     bc.pack(side=RIGHT, padx=10, pady=5)
-#     return click_crystal.get()
 
 
 def make_form(window_root, crystal_name):

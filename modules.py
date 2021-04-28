@@ -5,6 +5,7 @@ from numpy.linalg import pinv
 from tkinter import messagebox
 
 
+# noinspection PyTypeChecker
 def pc1d(data):
     # INPUT
     initial_wavelength = float(data['Initial wavelength for analysis'].get())
