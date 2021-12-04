@@ -1,20 +1,20 @@
-Index,Default,KRC 1,KRC 2
-Initial wavelength for analysis,0,500,500
-Final wavelength for analysis,0,1500,1500
-Wave polarization,s,s,s
-Wave incidence angle,0,0,0
-Refractive index of the incident layer,0,1,1
-Refractive index of odd layer,0,3.83,3.83
-Refractive index of even layer,0,1.81,1.81
-Refractive index of the substrate layer,0,1.5,1.5
-Number of pairs of crystal layers,0,6,6
-Is structure a quarter-wave?,0,0,0
-Odd layer resonant wavelength,0,0,0
-Even layer resonant wavelength,0,0,0
-Odd layer width,0,50,70
-Even layer width,0,100,140
-Are there any defects?,0,0,0
-Refractive index of the defect layer,0,0,0
-Defect layer resonant wavelength,0,0,0
-Defect layer width,0,0,0
-Number of pairs of crystal layers between defects,0,0,0
+Default,KRC 1,KRC 2
+0,500,500
+0,1500,1500
+s,s,s
+0,0,0
+0,1,1
+0,3.83,3.83
+0,1.81,1.81
+0,1.5,1.5
+0,6,6
+0,0,0
+0,0,0
+0,0,0
+0,50,70
+0,100,140
+0,0,0
+0,0,0
+0,0,0
+0,0,0
+0,0,0
