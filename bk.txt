@@ -1,52 +1,47 @@
-from modules import *
-import matplotlib.pyplot as plt
-from numpy import ones
-
-
-def func_evaluate(entry, action):
-    x, y_ref, y_trans = pc1d(entry)
-    if action == "Transmittance":
-        plt.plot(x, y_trans, 'red')
-        plt.xlabel('Nanômetros')
-        plt.ylabel('Transmitância')
-        plt.show()
-    elif action == "Reflectance":
-        plt.plot(x, y_ref, 'blue')
-        plt.xlabel('Nanômetros')
-        plt.ylabel('Reflectância')
-        plt.show()
-    elif action == "Absorption":
-        plt.plot(x, ones(len(x)) - y_ref - y_trans, 'purple')
-        plt.xlabel('Nanômetros')
-        plt.ylabel('Absorção')
-        plt.show()
-    elif action == "Reflectance with Transmittance":
-        plt.plot(x, y_ref, 'blue')
-        plt.plot(x, y_trans, 'red')
-        plt.xlabel('Nanômetros')
-        plt.ylabel('Intensidade')
-        plt.show()
-    elif action == "Absorption, Reflectance with Transmittance":
-        plt.plot(x, y_ref, 'blue')
-        plt.plot(x, y_trans, 'red')
-        plt.plot(x, ones(len(x)) - y_ref - y_trans, 'purple')
-        plt.xlabel('Nanômetros')
-        plt.ylabel('Intensidade')
-        plt.show()
-    elif action == "Reflectance and Transmittance":
-        plt.subplot(2, 1, 1)
-        plt.plot(x, y_ref, 'blue')
-        plt.ylabel('Reflectância')
-        plt.subplot(2, 1, 2)
-        plt.plot(x, y_trans, 'red')
-        plt.ylabel('Transmitância')
-        plt.xlabel('Nanômetros')
-        plt.show()
-    elif action == "Reflectance by Transmittance":
-        plt.plot(y_ref, y_trans, 'orange')
-        plt.xlabel('Reflectância')
-        plt.ylabel('Transmitância')
-        plt.show()
+# def func_evaluate(entry, action):
+#     x, y_ref, y_trans = pc1d(entry)
+#     if action == "Transmittance":
+#         plt.plot(x, y_trans, 'red')
+#         plt.xlabel('Nanômetros')
+#         plt.ylabel('Transmitância')
+#         plt.show()
+#     elif action == "Reflectance":
+#         plt.plot(x, y_ref, 'blue')
+#         plt.xlabel('Nanômetros')
+#         plt.ylabel('Reflectância')
+#         plt.show()
+#     elif action == "Absorption":
+#         plt.plot(x, ones(len(x)) - y_ref - y_trans, 'purple')
+#         plt.xlabel('Nanômetros')
+#         plt.ylabel('Absorção')
+#         plt.show()
+#     elif action == "Reflectance with Transmittance":
+#         plt.plot(x, y_ref, 'blue')
+#         plt.plot(x, y_trans, 'red')
+#         plt.xlabel('Nanômetros')
+#         plt.ylabel('Intensidade')
+#         plt.show()
+#     elif action == "Absorption, Reflectance with Transmittance":
+#         plt.plot(x, y_ref, 'blue')
+#         plt.plot(x, y_trans, 'red')
+#         plt.plot(x, ones(len(x)) - y_ref - y_trans, 'purple')
+#         plt.xlabel('Nanômetros')
+#         plt.ylabel('Intensidade')
+#         plt.show()
+#     elif action == "Reflectance and Transmittance":
+#         plt.subplot(2, 1, 1)
+#         plt.plot(x, y_ref, 'blue')
+#         plt.ylabel('Reflectância')
+#         plt.subplot(2, 1, 2)
+#         plt.plot(x, y_trans, 'red')
+#         plt.ylabel('Transmitância')
+#         plt.xlabel('Nanômetros')
+#         plt.show()
+#     elif action == "Reflectance by Transmittance":
+#         plt.plot(y_ref, y_trans, 'orange')
+#         plt.xlabel('Reflectância')
+#         plt.ylabel('Transmitância')
+#         plt.show()
 
 # def func_multiple_lambdas(data):
 #     initial_wavelength = int(data['initial_wavelength'].get())
