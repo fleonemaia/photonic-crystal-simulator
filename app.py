@@ -1,7 +1,7 @@
 import tkinter as tk
 import pandas as pd
 from numpy import identity, reshape
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from math import sin, cos, pi, asin
 from numpy.linalg import pinv
 from cmath import exp
@@ -125,6 +125,15 @@ def pcs(data):
 
     return data_wavelength, data_reflectance_by_wavelength, data_transmittance_by_wavelength
 
+def check_sample(initial_sample, entries, variables, samples):
+    # for variable, n in zip(variables, range(len(variables))):
+    #     entries[variable].set(0, str(samples[initial_sample][n]))
+    pass
+
+def button_action(variables, entries, action):
+    e_values = [entries[variable].get() for variable in variables]
+    w, r, t = pcs(e_values)
+
 def window(variables, actions, samples):
     HEIGHT = 700
     WIDTH = 600
@@ -168,16 +177,6 @@ def window(variables, actions, samples):
     button.place(relx=0.25, rely=line, relwidth=0.5, relheight=0.05)
 
     root.mainloop()
-
-def check_sample(initial_sample, entries, variables, samples):
-    print("ENTROU")
-    # for variable, n in zip(variables, range(len(variables))):
-    #     entries[variable].set(0, str(samples[initial_sample][n]))
-    pass
-
-def button_action(variables, entries, action):
-    e_values = [entries[variable].get() for variable in variables]
-    w, r, t = pcs(e_values)
 
 def app(samples):
     variables = ['Initial wavelength', 
