@@ -1,6 +1,7 @@
+from cProfile import label
 import tkinter as tk
 import pandas as pd
-from numpy import identity, reshape
+from numpy import identity, reshape, ones
 import matplotlib.pyplot as plt
 from math import sin, cos, pi, asin
 from numpy.linalg import pinv
@@ -8,25 +9,26 @@ from cmath import exp
 
 def pcs(data):
     
-    initial_wavelength = data[0]
-    final_wavelength   = data[1]
+    initial_wavelength = float(data[0])
+    final_wavelength   = float(data[1])
     polarization       = data[2]
-    angle_of_incidence = data[3]
-    number_of_pairs    = data[4]
-    is_quarter_wave    = data[5]
-    lam_vac1           = data[6]
-    lam_vac2           = data[7]
-    w_n_1              = data[8]
-    w_n_2              = data[9]
-    number_of_defects  = data[10]
-    lam_vac_def        = data[11]
-    w_n_defects        = data[12]
-    inter_pairs        = data[13]
-    n_inc              = data[14]
-    n_1                = data[15]
-    n_2                = data[16]
-    n_subs             = data[17]
-    n_defects          = data[18]
+    angle_of_incidence = float(data[3])
+    n_inc              = float(data[4])
+    n_1                = float(data[5])
+    n_2                = float(data[6])
+    n_subs             = float(data[7])
+    number_of_pairs    = int(data[8])
+    is_quarter_wave    = int(data[9])
+    lam_vac1           = float(data[10])
+    lam_vac2           = float(data[11])
+    w_n_1              = float(data[12])
+    w_n_2              = float(data[13])
+    number_of_defects  = int(data[14])
+    n_defects          = float(data[15])
+    lam_vac_def        = float(data[16])
+    w_n_defects        = float(data[17])
+    inter_pairs        = int(data[18])
+    
 
     # Barriers
     number_of_materials = 2
@@ -125,16 +127,42 @@ def pcs(data):
 
     return data_wavelength, data_reflectance_by_wavelength, data_transmittance_by_wavelength
 
-def check_sample(initial_sample, entries, variables, samples):
-    # for variable, n in zip(variables, range(len(variables))):
-    #     entries[variable].set(0, str(samples[initial_sample][n]))
-    pass
+def make_plots(action, x, y_ref, y_trans):
+    if action == "Transmittance":
+        plt.plot(x, y_trans, 'red', label='Transmittance')
+        plt.xlabel('Nanometers')
+        plt.ylabel('Transmittance')
+        plt.show()
+    elif action == "Reflectance":
+        plt.plot(x, y_ref, 'blue', label='Reflectance')
+        plt.xlabel('Nanometers')
+        plt.ylabel('Reflectância')
+        plt.show()
+    elif action == "Absorption":
+        plt.plot(x, ones(len(x)) - y_ref - y_trans, 'purple', label='Absorption')
+        plt.xlabel('Nanometers')
+        plt.ylabel('Absorção')
+        plt.show()
+    elif action == "Reflectance and Transmittance":
+        plt.plot(x, y_ref, 'blue', label='Reflectance')
+        plt.plot(x, y_trans, 'red', label='Transmittance')
+        plt.xlabel('Nanometers')
+        plt.ylabel('Intensidade')
+        plt.show()
+    elif action == "Reflectance, Absorption and Transmittance":
+        plt.plot(x, y_ref, 'blue', label='Reflectance')
+        plt.plot(x, y_trans, 'red', label='Transmittance')
+        plt.plot(x, ones(len(x)) - y_ref - y_trans, 'purple', label='Absorption')
+        plt.xlabel('Nanometers')
+        plt.ylabel('Intensidade')
+        plt.show()
 
 def button_action(variables, entries, action):
     e_values = [entries[variable].get() for variable in variables]
     w, r, t = pcs(e_values)
+    make_plots(action, w, r, t)
 
-def window(variables, actions, samples):
+def window(variables, actions):
     HEIGHT = 700
     WIDTH = 600
     
@@ -167,18 +195,12 @@ def window(variables, actions, samples):
     menu_action = tk.OptionMenu(frame, click_action, *actions)
     menu_action.place(relx=0.0, rely=line, relwidth=0.5, relheight=0.05)
     
-    click_sample = tk.StringVar()
-    click_sample.set('Default')
-    menu_sample = tk.OptionMenu(frame, click_sample, *samples)
-    click_sample.trace('w', lambda entries, variables, samples: check_sample(click_sample.get(), entries, variables, samples))
-    menu_sample.place(relx=0.5, rely=line, relwidth=0.5, relheight=0.05)
-
     button = tk.Button(shell, text='Evaluate', command=(lambda: button_action(variables, entries, click_action.get())))
     button.place(relx=0.25, rely=line, relwidth=0.5, relheight=0.05)
 
     root.mainloop()
 
-def app(samples):
+def app():
     variables = ['Initial wavelength', 
     'Final wavelength', 
     'Wave polarization', 
@@ -202,21 +224,10 @@ def app(samples):
     actions = ["Transmittance",
     "Reflectance",
     "Absorption",
-    "Reflectance with Transmittance",
-    "Absorption, Reflectance with Transmittance",
     "Reflectance and Transmittance",
-    "Reflectance by Transmittance"]
+    "Reflectance, Absorption and Transmittance"]
 
-    if type(samples) == type(-1):
-        samples = {}
-        samples['Default'] = [0]*len(variables)
-        samples = pd.DataFrame(samples)
-
-    window(variables, actions, samples)
+    window(variables, actions)
 
 if __name__ == '__main__':
-    try:
-        data = pd.read_csv("data.csv")
-    except:
-        data = -1
-    app(data)
+    app()
